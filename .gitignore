@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/EmployeeERP.API/obj
+/EmployeeERP.API/.vs/EmployeeERP.API
+*.user
+/EmployeeERP.API/.vs/ProjectEvaluation
+/.vs
+/EmployeeERP.API/bin/Debug/net8.0
+/EmployeeERP.API/_Files/
+/EmployeeERP.API/wwwroot/
+/EmployeeERP.API/bin
+/EmployeeERP.API/_file
+/EmployeeERP.API/ilog/
