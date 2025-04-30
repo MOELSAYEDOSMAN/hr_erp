@@ -17,7 +17,13 @@ namespace EmployeeERP.API.Controllers
                 page = 1;
             return Ok(await _EmployeeService.GetAll((int)page, (int)count));
         }
+        [HttpGet("Get/{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var data = await _EmployeeService.GetWithId(id);
+            return data == null ? NotFound(null) : Ok(data);
 
+        }
         [HttpPost("GetAllWithFilter")]
         public async Task<IActionResult> GetAll(EmployeeDto? employee,uint? page = 1, uint? count = 10)
         {

@@ -36,7 +36,7 @@ namespace EmployeeERP.API.Service.UnitOfWork
             var data = _memoryCache.GetData().ToList();
             input.creation = DateTime.UtcNow;
             input.owner = owner??string.Empty;
-            input.id = data.LastOrDefault()?.id??0 + 1;
+            input.id = (data.LastOrDefault()?.id??0) + 1;
             data.Add(input);
             _memoryCache.UpdateList(data);
             return input;
