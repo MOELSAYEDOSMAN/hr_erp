@@ -11,7 +11,10 @@ namespace EmployeeERP.API
 
             // Add services to the container.
             builder.Services.AddEmployeeErpService(builder.Configuration);
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().ConfigureApiBehaviorOptions(option => option.SuppressModelStateInvalidFilter = true).AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -22,6 +25,7 @@ namespace EmployeeERP.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors(d => d.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();

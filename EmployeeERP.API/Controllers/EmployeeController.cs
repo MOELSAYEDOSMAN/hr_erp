@@ -25,11 +25,13 @@ namespace EmployeeERP.API.Controllers
 
         }
         [HttpPost("GetAllWithFilter")]
-        public async Task<IActionResult> GetAll(EmployeeDto? employee,uint? page = 1, uint? count = 10)
+        public async Task<IActionResult> GetAll(Employee? employee,uint? page = 1, uint? count = 10)
         {
-            Func<Employee, EmployeeDto, bool> predicate = (d, employee) =>
+            Func<Employee, Employee, bool> predicate = (d, employee) =>
             {
                 bool result = true;
+                if (employee == null)
+                    return true;
                 if(!string.IsNullOrEmpty(employee.firstName))
                 {
                     result = d.firstName.Contains(employee.firstName, StringComparison.OrdinalIgnoreCase);
