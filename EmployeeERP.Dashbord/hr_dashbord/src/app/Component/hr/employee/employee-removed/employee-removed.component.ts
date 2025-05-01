@@ -23,6 +23,8 @@ delete()
   this.lsobservableDistory.push(
     this.employeeService.remove(this.employeeId).subscribe()
   )
+  setTimeout(() => {}, 1000);
+  alert("deleted")
   this.callApiEvent.emit()
 }
 }

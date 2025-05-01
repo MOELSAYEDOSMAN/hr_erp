@@ -7,11 +7,7 @@
   </div>
 
   <div class="card-body">
-      <div class="row mb-3">
-          <div class="col-md-4">
-              <input (input)="filter($event)" type="text" class="form-control" id="searchInput" placeholder="Search employees...">
-          </div>
-      </div>
+
 
       <div class="table-responsive">
           <table class="table table-hover">
@@ -28,6 +24,18 @@
                   </tr>
               </thead>
               <tbody id="employeeTableBody">
+
+                <tr>
+                  <th><input type="number" min="0" [(ngModel)]="emp.id" class="form-control" onkeyup="filterTable(0, this.value)" placeholder="Filter ID"></th>
+                  <th><input type="text"  [(ngModel)]="emp.firstName" class="form-control" onkeyup="filterTable(1, this.value)" placeholder="Filter First Name"></th>
+                  <th><input type="text"  [(ngModel)]="emp.lastName" class="form-control" onkeyup="filterTable(2, this.value)" placeholder="Filter Last Name"></th>
+                  <th><input type="text"  [(ngModel)]="emp.email" class="form-control" onkeyup="filterTable(3, this.value)" placeholder="Filter Email"></th>
+                  <th><input type="text"  [(ngModel)]="emp.position" class="form-control" onkeyup="filterTable(4, this.value)" placeholder="Filter Position"></th>
+                  <th><input type="date"  [(ngModel)]="emp.creation" class="form-control" onkeyup="filterTable(5, this.value)" placeholder="Filter Created"></th>
+                  <th><button class="btn btn-secondary" (click)="filter()">filter</button></th>
+                </tr>
+
+
                 <tr *ngFor="let emp of data.data">
                   <td>{{emp.id}}</td>
                   <td>{{emp.firstName}}</td>

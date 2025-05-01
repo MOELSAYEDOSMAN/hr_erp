@@ -7,9 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { EmployeeModelInsertComponent } from "../employee-model-insert/employee-model-insert.component";
 import { EmployeeRemovedComponent } from "../employee-removed/employee-removed.component";
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-employee-index',
-  imports: [CommonModule, HttpClientModule, EmployeeModelInsertComponent, EmployeeRemovedComponent],
+  imports: [CommonModule, HttpClientModule, FormsModule,EmployeeModelInsertComponent, EmployeeRemovedComponent],
   templateUrl: './employee-index.component.html',
   styleUrl: './employee-index.component.scss'
 })
@@ -42,17 +43,9 @@ export class EmployeeIndexComponent implements OnDestroy {
     this.loadEmployeeData()
   }
 
-  filter(event:Event)
+  filter()
   {
-    if(event && event.target && event.target)
-    {
-      let input=(event.target as HTMLInputElement)?.value ?? "";
-      if(input==null||input.length<2)
-        return;
-      this.emp.email=input;
       this.loadEmployeeData();
-    }
-
   }
   ngOnInit() {
     this.loadEmployeeData();

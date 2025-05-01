@@ -32,6 +32,10 @@ namespace EmployeeERP.API.Controllers
                 bool result = true;
                 if (employee == null)
                     return true;
+                if(employee.id!=null&&employee.id>0)
+                {
+                    result = d.id.Equals(employee.id);
+                }
                 if(!string.IsNullOrEmpty(employee.firstName))
                 {
                     result = d.firstName.Contains(employee.firstName, StringComparison.OrdinalIgnoreCase);
