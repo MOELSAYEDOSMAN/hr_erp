@@ -1,0 +1,36 @@
+<video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop"><source src="bg.mp4" type="video/mp4" /></video>
+        <!-- Masthead-->
+        <div class="masthead">
+            <div class="masthead-content text-white">
+                <div class="container-fluid px-4 px-lg-0">
+                    <h1 class="fst-italic lh-1 mb-4">HR ERP</h1>
+                    <p class="mb-5">An HR ERP system is an integrated software solution designed to manage and streamline all aspects of human resource management within an organization. It combines core HR functions—such as recruitment, payroll, performance management, attendance tracking, training, and employee data management—into a centralized platform</p>
+
+                    <div id="contactForm"  data-sb-form-api-token="API_TOKEN">
+                        <div class="row d-flex input-group-newsletter">
+                            <div class="col"><input class="form-control m-1" (input)="setvalue($event)" id="email" type="email" placeholder="Enter email address..." aria-label="Enter email address..." data-sb-validations="required,email" /></div>
+                            <div class="col-auto"><button class="btn btn-primary" [class.disabled]="admin_email!=null&&admin_email.length<1" id="submitButton" (click)="login()">login</button></div>
+                        </div>
+                        <div class="invalid-feedback mt-2" data-sb-feedback="email:required">An email is required.</div>
+                        <div class="invalid-feedback mt-2" data-sb-feedback="email:email">Email is not valid.</div>
+                        <div class="d-none" id="submitSuccessMessage">
+                            <div class="text-center mb-3 mt-2">
+                                <div class="fw-bolder">Form submission successful!</div>
+                                To activate this form, sign up at
+                                <br />
+                                <a href=""></a>
+                            </div>
+                        </div>
+                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3 mt-2">Error sending message!</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="social-icons">
+            <div class="d-flex flex-row flex-lg-column justify-content-center align-items-center h-100 mt-3 mt-lg-0">
+                <a class="btn btn-dark m-3" href="#!"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-dark m-3" href="#!"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-dark m-3" href="#!"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div> -->

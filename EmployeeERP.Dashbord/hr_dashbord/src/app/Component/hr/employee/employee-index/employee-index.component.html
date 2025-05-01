@@ -50,9 +50,9 @@
 
       <nav aria-label="Page navigation">
           <ul class="pagination justify-content-end">
-              <li class="page-item" [class.d-none]="page==1" (click)="prevpage()" id="prevPage"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item" [class.d-none]="page<=1" (click)="prevpage()" id="prevPage"><a class="page-link" href="#">Previous</a></li>
               <li class="page-item disabled"><span class="page-link" id="currentPage">{{page}}</span></li>
-              <li class="page-item" [class.d-none]="page==data.pages"  (click)="nextpage()"  id="nextPage" ><a class="page-link" href="#">Next</a></li>
+              <li class="page-item" [class.d-none]="page>=data.pages"  (click)="nextpage()"  id="nextPage" ><a class="page-link" href="#">Next</a></li>
           </ul>
       </nav>
   </div>
@@ -61,6 +61,6 @@
 <!-- Employee Modal -->
 <div class="modal fade" id="employeeModal">
   <div class="modal-dialog modal-dialog-centered">
-     <app-employee-model-insert class="w-100"></app-employee-model-insert>
+     <app-employee-model-insert (callApiEvent)="loadEmployeeData()" class="w-100"></app-employee-model-insert>
   </div>
 </div>

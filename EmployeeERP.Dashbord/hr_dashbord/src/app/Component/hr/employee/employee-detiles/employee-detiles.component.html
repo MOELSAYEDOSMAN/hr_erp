@@ -1,0 +1,83 @@
+<div class="container mt-4">
+  <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="employees.html">Employees</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Employee Details</li>
+      </ol>
+  </nav>
+
+
+  <div [class.d-none]="employee!=null||lodding==true">
+    <div class="alert alert-danger" role="alert">
+      ⛔ Not Found Employee
+    </div>
+  </div>
+  <div [class.d-none]="employee==null&&lodding==false" class="profile-header">
+      <div class="row align-items-center">
+          <div class="col-md-4 text-center text-md-start">
+              <div class="profile-image" id="profileInitials">
+                  {{`${employee?.firstName?.[0]}${employee?.lastName?.[0]}`}}
+              </div>
+          </div>
+          <div class="col-md-8">
+              <h1 class="mb-3" id="employeeName">{{`${lodding==false?`${employee?.firstName} ${employee?.lastName}`:'Loading...'}`}}</h1>
+              <div class="d-flex align-items-center mb-3">
+                  <span class="badge bg-info me-2 p-2" id="employeePosition">{{`${lodding==false?employee?.position:'Loading...'}`}}</span>
+                  <span class="text-muted" id="employeeId">ID: {{`${lodding==false?employee?.id:'Loading...'}`}}</span>
+              </div>
+              <div class="d-flex mt-4">
+                  <button class="btn btn-outline-primary me-2">
+                      <i class="bi bi-pencil me-1"></i> Edit Profile
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div [class.d-none]="employee==null&&lodding==false" class="row">
+      <div class="col-lg-8">
+          <div class="info-card">
+              <h4 class="mb-4">Personal Information</h4>
+              <div class="row mb-3">
+                  <div class="col-md-4">
+                      <div class="info-label">First Name</div>
+                      <div class="info-value" id="firstName">{{`${lodding==false?employee?.firstName:'Loading...'}`}}</div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="info-label">Last Name</div>
+                      <div class="info-value" id="lastName">{{`${lodding==false?employee?.lastName:'Loading...'}`}}</div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="info-label">Employee ID</div>
+                      <div class="info-value" id="idNumber">{{`${lodding==false?employee?.id:'Loading...'}`}}</div>
+                  </div>
+              </div>
+              <div class="row mb-3">
+                  <div class="col-md-8">
+                      <div class="info-label">Email</div>
+                      <div class="info-value" id="email">{{`${lodding==false?employee?.email:'Loading...'}`}}</div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="info-label">Date Joined</div>
+                      <div class="info-value" id="creationDate">{{`${lodding==false?(employee?.creation|date: 'dd-mm-yyyy'):'Loading...'}`}}</div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="info-label">Position</div>
+                      <div class="info-value" id="position">{{`${lodding==false?employee?.position:'Loading...'}`}}</div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="info-label">create with</div>
+                      <div class="info-value" id="department">{{`${lodding==false?employee?.owner:'Loading...'}`}}</div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="info-label">last modified with</div>
+                      <div class="info-value">{{`${lodding==false?employee?.modified_by:'Loading...'}`}}</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

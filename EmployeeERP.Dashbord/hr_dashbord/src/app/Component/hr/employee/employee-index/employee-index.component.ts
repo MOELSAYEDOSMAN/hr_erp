@@ -1,5 +1,5 @@
 import { Employee } from './../../../../../models/EmployeeDtos/employee';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {EmployeeService} from '../../../../../service/api-service/employeeApiService/employee-service.service'
 import { ListDataDto } from '../../../../../models/listDtos/list-data-dto';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { EmployeeModelInsertComponent } from "../employee-model-insert/employee-
   templateUrl: './employee-index.component.html',
   styleUrl: './employee-index.component.scss'
 })
-export class EmployeeIndexComponent {
+export class EmployeeIndexComponent implements OnDestroy {
   lsobservableDistory:Subscription[]=[];
   data!: ListDataDto<Employee>;
   page:number=1;

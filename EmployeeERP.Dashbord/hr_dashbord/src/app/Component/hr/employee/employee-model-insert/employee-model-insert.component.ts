@@ -1,5 +1,5 @@
 import { ListDataDto } from './../../../../../models/listDtos/list-data-dto';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Employee } from '../../../../../models/EmployeeDtos/employee';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeService } from '../../../../../service/api-service/employeeApiService/employee-service.service';
@@ -20,6 +20,7 @@ export class EmployeeModelInsertComponent implements OnDestroy,OnInit {
   employee:Employee|null=null;
   formInput:FormGroup;
   postionlist!:ListDataDto<PostiionDto>;
+  @Output() callApiEvent = new EventEmitter()
 constructor(private employeeService: EmployeeService,private positionService:PostionApiService,private fb:FormBuilder) {
 
 
@@ -77,8 +78,9 @@ constructor(private employeeService: EmployeeService,private positionService:Pos
       this.employeeService.insert(input)
       .subscribe(
         {
-          next(value) {
+          next: value=> {
             input=value
+            this.callApiEvent.emit()
           },
           error:()=>this.message="cheack data"
         }

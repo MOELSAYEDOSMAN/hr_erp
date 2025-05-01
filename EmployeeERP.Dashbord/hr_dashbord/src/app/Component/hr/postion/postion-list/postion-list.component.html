@@ -1,0 +1,40 @@
+<div class="card shadow">
+  <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Postion List</h5>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal">
+          Add Postion
+      </button>
+  </div>
+
+  <div class="card-body">
+      <div class="table-responsive">
+          <table class="table table-hover">
+              <thead class="table-light">
+                  <tr>
+                      <th class="sortable" data-sort="id">ID</th>
+                      <th class="sortable" data-sort="fname">title</th>
+                      <th class="sortable" data-sort="creation">Created</th>
+
+
+                  </tr>
+              </thead>
+              <tbody id="employeeTableBody">
+                <tr *ngFor="let emp of data.data">
+                  <td>{{emp.id}}</td>
+                  <td>{{emp.title}}</td>
+                  <td>{{emp.creation| date: 'dd-MMM-yyyy HH:mm'}}</td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+
+
+  </div>
+</div>
+
+<!-- Employee Modal -->
+<div class="modal fade" id="employeeModal">
+  <div class="modal-dialog modal-dialog-centered">
+     <app-postion-model-insert (callApiEvent)="loadPostionData()" class="w-100"></app-postion-model-insert>
+  </div>
+</div>

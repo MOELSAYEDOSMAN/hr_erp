@@ -26,7 +26,7 @@ export class PostionApiService {
 
     insert(title:string):Observable<PostiionDto>
     {
-      return this.httpclient.post<PostiionDto>(`${environment.apiUrl}${this.baseController}/insert`,{
+      return this.httpclient.post<PostiionDto>(`${environment.apiUrl}${this.baseController}/insert?position=${title}&owner=${localStorage.getItem("owner")??""}`,{
         position:title,owner:localStorage.getItem("owner")??""
       },this.httpOptions)
     }
