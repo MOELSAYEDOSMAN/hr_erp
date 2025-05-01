@@ -36,10 +36,10 @@
                   <td><span class="badge w-100 bg-info">{{emp.position}}</span></td>
                   <td>{{emp.creation| date: 'dd-MMM-yyyy HH:mm'}}</td>
                   <td>
-                      <button class="btn btn-sm btn-outline-primary me-1" onclick="editEmployee(1)">
+                      <a class="btn btn-sm btn-outline-primary me-1" href="EmployeeDetails/{{emp.id}}" >
                           ✏️
-                      </button>
-                      <button class="btn btn-sm btn-outline-danger" onclick="deleteEmployee(1)">
+                      </a>
+                      <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#employeeDelted" (click)="setid(emp.id)">
                           🗑️
                       </button>
                   </td>
@@ -50,9 +50,9 @@
 
       <nav aria-label="Page navigation">
           <ul class="pagination justify-content-end">
-              <li class="page-item" [class.d-none]="page<=1" (click)="prevpage()" id="prevPage"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item" [class.d-none]="page<=1" (click)="prevpage()" id="prevPage"><button class="page-link" >Previous</button></li>
               <li class="page-item disabled"><span class="page-link" id="currentPage">{{page}}</span></li>
-              <li class="page-item" [class.d-none]="page>=data.pages"  (click)="nextpage()"  id="nextPage" ><a class="page-link" href="#">Next</a></li>
+              <li class="page-item" [class.d-none]="page>=data.pages"  (click)="nextpage()"  id="nextPage" ><button class="page-link" >Next</button></li>
           </ul>
       </nav>
   </div>
@@ -61,6 +61,14 @@
 <!-- Employee Modal -->
 <div class="modal fade" id="employeeModal">
   <div class="modal-dialog modal-dialog-centered">
-     <app-employee-model-insert (callApiEvent)="loadEmployeeData()" class="w-100"></app-employee-model-insert>
+     <app-employee-model-insert (callApiEvent)="loadEmployeeData()" [employee_update]="null" class="w-100"></app-employee-model-insert>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="employeeDelted">
+  <div class="modal-dialog modal-dialog-centered">
+     <app-employee-removed  (callApiEvent)="loadEmployeeData()" [employeeId]="empid" class="w-100"></app-employee-removed>
   </div>
 </div>

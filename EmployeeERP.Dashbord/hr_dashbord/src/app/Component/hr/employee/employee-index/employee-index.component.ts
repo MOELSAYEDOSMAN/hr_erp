@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { EmployeeModelInsertComponent } from "../employee-model-insert/employee-model-insert.component";
+import { EmployeeRemovedComponent } from "../employee-removed/employee-removed.component";
 @Component({
   selector: 'app-employee-index',
-  imports: [CommonModule, HttpClientModule, EmployeeModelInsertComponent],
+  imports: [CommonModule, HttpClientModule, EmployeeModelInsertComponent, EmployeeRemovedComponent],
   templateUrl: './employee-index.component.html',
   styleUrl: './employee-index.component.scss'
 })
@@ -18,6 +19,9 @@ export class EmployeeIndexComponent implements OnDestroy {
   page:number=1;
   count:number=5;
   emp:Employee;
+  empid:number=0;
+  model_emp:boolean=false;
+  emp_update:Employee|null=null;
   constructor(private employeeService: EmployeeService) {
   this.emp={id:0,firstName:"",lastName:"",creation:null,email:"",modified:null,modified_by:"",owner:"",position:"",soft_delete:false};
   }
@@ -52,6 +56,7 @@ export class EmployeeIndexComponent implements OnDestroy {
   }
   ngOnInit() {
     this.loadEmployeeData();
+    this.model_emp=false;
   }
   ngOnDestroy(): void {
     this.lsobservableDistory.forEach(x=>x.unsubscribe())
@@ -62,5 +67,24 @@ export class EmployeeIndexComponent implements OnDestroy {
       next: (d) => this.data = d,
       error: (err) => console.error('Error loading employees:', err)
     }))
+    this.model_emp=false
+  }
+
+  setid(id:number)
+  {
+    this.empid=id
+  }
+  setEmp(input:Employee|null)
+  {
+
+    this.emp_update=input
+    alert(this.emp_update?.firstName)
+    this.model_emp=true
+  }
+
+  updateclosed()
+  {
+    this.model_emp=false;
+    this.emp_update=null;
   }
 }

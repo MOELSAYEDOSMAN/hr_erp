@@ -38,20 +38,31 @@ export class EmployeeService {
     return this.httpclient.post<Employee>(`${environment.apiUrl}${this.baseController}/Insert`,emp,this.httpOptions)
   }
 
-  update(emp:Employee):Observable<Employee>
+  update(emp:Employee,emp_id:number):Observable<Employee>
   {
+    emp.id=emp_id;
     emp.owner=localStorage.getItem("owner")??"";
-    return this.httpclient.post<Employee>(`${environment.apiUrl}${this.baseController}/Update`,{
-      employee:emp
-    },this.httpOptions)
+    emp.soft_delete=false;
+    emp.modified_by=localStorage.getItem("owner")??"";
+    return this.httpclient.post<Employee>(`${environment.apiUrl}${this.baseController}/Update`,emp,this.httpOptions)
   }
 
-  remove(emp:Employee):Observable<boolean>
+  remove(empid:number):Observable<boolean>
   {
-    emp.owner=localStorage.getItem("owner")??"";
-    return this.httpclient.post<boolean>(`${environment.apiUrl}${this.baseController}/Remove`,{
-      employee:emp
-    },this.httpOptions)
+    let emp:Employee={
+      id:empid,
+      owner:localStorage.getItem("owner")??"",
+      creation:null,
+      firstName:"",
+      email:"",
+      lastName:"",
+      modified:null,
+      modified_by:"",
+      position:"",
+      soft_delete:true
+    }
+
+    return this.httpclient.post<boolean>(`${environment.apiUrl}${this.baseController}/Remove`,emp,this.httpOptions)
   }
 
 

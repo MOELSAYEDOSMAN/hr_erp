@@ -65,9 +65,9 @@ namespace EmployeeERP.API.Controllers
             return Ok(await _EmployeeService.Insert(employee, employee.Owner));
         }
         [HttpPost("Update")]
-        public async Task<IActionResult> update(EmployeeDto? employee)
+        public async Task<IActionResult> update(Employee? employee)
         {
-            if (employee == null || employee.id < 1 || string.IsNullOrEmpty(employee.Owner))
+            if (employee == null || employee.id < 1 || string.IsNullOrEmpty(employee.owner))
                 return BadRequest();
             if (!ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace EmployeeERP.API.Controllers
                     Error = $"{i.ErrorMessage}\n";
                 return BadRequest(Error);
             }
-            return Ok(await _EmployeeService.Update(employee, employee.Owner));
+            return Ok(await _EmployeeService.Update(employee, employee.owner));
         }
         [HttpPost("Remove")]
         public async Task<IActionResult> Remove(EmployeeDto? employee)

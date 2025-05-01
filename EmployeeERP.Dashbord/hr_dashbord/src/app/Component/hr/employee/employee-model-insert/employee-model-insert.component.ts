@@ -1,5 +1,5 @@
 import { ListDataDto } from './../../../../../models/listDtos/list-data-dto';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Employee } from '../../../../../models/EmployeeDtos/employee';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeService } from '../../../../../service/api-service/employeeApiService/employee-service.service';
@@ -21,14 +21,15 @@ export class EmployeeModelInsertComponent implements OnDestroy,OnInit {
   formInput:FormGroup;
   postionlist!:ListDataDto<PostiionDto>;
   @Output() callApiEvent = new EventEmitter()
+  @Input() employee_update: Employee|null = null;
 constructor(private employeeService: EmployeeService,private positionService:PostionApiService,private fb:FormBuilder) {
 
 
   this.formInput=fb.group(
     {
-      firstName:['',[Validators.required,Validators.minLength(1)]],
-      lastName:['',[Validators.required,Validators.minLength(1)]],
-      email:['',[Validators.required,Validators.minLength(1),Validators.email]],
+      firstName:[null,[Validators.required,Validators.minLength(1)]],
+      lastName:[null,[Validators.required,Validators.minLength(1)]],
+      email:[null,[Validators.required,Validators.minLength(1),Validators.email]],
       position:[null,[Validators.required,Validators.minLength(1)]],
     }
   );
@@ -39,7 +40,17 @@ constructor(private employeeService: EmployeeService,private positionService:Pos
     this.lsobservableDistory.push(this.positionService.GetAll().subscribe({
       next:d=>this.postionlist=d
     }))
-
+    if(this.employee_update)
+    {
+      this.formInput=this.fb.group(
+        {
+          firstName:[this.employee_update?.firstName,[Validators.required,Validators.minLength(1)]],
+          lastName:[this.employee_update?.lastName,[Validators.required,Validators.minLength(1)]],
+          email:[this.employee_update?.email,[Validators.required,Validators.minLength(1),Validators.email]],
+          position:[this.employee_update?.position,[Validators.required,Validators.minLength(1)]],
+        }
+      );
+    }
   }
   getErrorKeys(control: AbstractControl | null): string[] {
     return control?.errors ? Object.keys(control.errors) : [];
@@ -66,6 +77,7 @@ constructor(private employeeService: EmployeeService,private positionService:Pos
     if(this.formInput.invalid)
     {
       this.message="Cheack Data"
+      return;
     }
     else
     {
@@ -74,18 +86,37 @@ constructor(private employeeService: EmployeeService,private positionService:Pos
 
     let input:Employee=this.formInput.value;
 
-    this.lsobservableDistory.push(
-      this.employeeService.insert(input)
-      .subscribe(
-        {
-          next: value=> {
-            input=value
-            this.callApiEvent.emit()
-          },
-          error:()=>this.message="cheack data"
-        }
+    if(this.employee_update)
+    {
+      this.lsobservableDistory.push(
+        this.employeeService.update(input,this.employee_update.id)
+        .subscribe(
+          {
+            next: value=> {
+              input=value
+              this.callApiEvent.emit()
+            },
+            error:()=>this.message="cheack data"
+          }
+        )
       )
-    )
+
+    }
+    else{
+      this.lsobservableDistory.push(
+        this.employeeService.insert(input)
+        .subscribe(
+          {
+            next: value=> {
+              input=value
+              this.callApiEvent.emit()
+            },
+            error:()=>this.message="cheack data"
+          }
+        )
+      )
+
+    }
   }
   ngOnDestroy(): void {
     this.lsobservableDistory.forEach(x=>x.unsubscribe())
