@@ -35,9 +35,7 @@ export class EmployeeService {
   insert(emp:Employee):Observable<Employee>
   {
     emp.owner=localStorage.getItem("owner")??"";
-    return this.httpclient.post<Employee>(`${environment.apiUrl}${this.baseController}/Insert`,{
-      employee:emp
-    },this.httpOptions)
+    return this.httpclient.post<Employee>(`${environment.apiUrl}${this.baseController}/Insert`,emp,this.httpOptions)
   }
 
   update(emp:Employee):Observable<Employee>

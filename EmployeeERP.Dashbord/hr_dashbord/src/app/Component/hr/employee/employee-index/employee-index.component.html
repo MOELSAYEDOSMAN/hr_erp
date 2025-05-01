@@ -61,45 +61,6 @@
 <!-- Employee Modal -->
 <div class="modal fade" id="employeeModal">
   <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title">Add New Employee</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <form id="employeeForm" novalidate>
-              <div class="modal-body">
-                  <div class="mb-3">
-                      <label class="form-label">First Name</label>
-                      <input type="text" class="form-control" name="fname" required>
-                      <div class="error-message"></div>
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Last Name</label>
-                      <input type="text" class="form-control" name="lname" required>
-                      <div class="error-message"></div>
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Email</label>
-                      <input type="email" class="form-control" name="email" required>
-                      <div class="error-message"></div>
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Position</label>
-                      <select class="form-select" name="position" required>
-                          <option value="">Select Position</option>
-                          <option>Developer</option>
-                          <option>Designer</option>
-                          <option>Manager</option>
-                          <option>Analyst</option>
-                      </select>
-                      <div class="error-message"></div>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save Employee</button>
-              </div>
-          </form>
-      </div>
+     <app-employee-model-insert class="w-100"></app-employee-model-insert>
   </div>
 </div>

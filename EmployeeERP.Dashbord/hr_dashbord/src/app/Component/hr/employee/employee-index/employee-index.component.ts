@@ -4,13 +4,16 @@ import {EmployeeService} from '../../../../../service/api-service/employeeApiSer
 import { ListDataDto } from '../../../../../models/listDtos/list-data-dto';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+import { EmployeeModelInsertComponent } from "../employee-model-insert/employee-model-insert.component";
 @Component({
   selector: 'app-employee-index',
-  imports: [CommonModule,HttpClientModule],
+  imports: [CommonModule, HttpClientModule, EmployeeModelInsertComponent],
   templateUrl: './employee-index.component.html',
   styleUrl: './employee-index.component.scss'
 })
 export class EmployeeIndexComponent {
+  lsobservableDistory:Subscription[]=[];
   data!: ListDataDto<Employee>;
   page:number=1;
   count:number=5;
@@ -50,11 +53,14 @@ export class EmployeeIndexComponent {
   ngOnInit() {
     this.loadEmployeeData();
   }
+  ngOnDestroy(): void {
+    this.lsobservableDistory.forEach(x=>x.unsubscribe())
+  }
   loadEmployeeData()
   {
-    this.employeeService.filter(this.emp,this.page,this.count).subscribe({
+    this.lsobservableDistory.push( this.employeeService.filter(this.emp,this.page,this.count).subscribe({
       next: (d) => this.data = d,
       error: (err) => console.error('Error loading employees:', err)
-    })
+    }))
   }
 }

@@ -11,7 +11,7 @@ namespace EmployeeERP.API.Service.UnitOfWork
     {
         async Task<UnitGetDto<T>> IUnitService<T>.Filter(T input,Func<T, T, bool> predicate, int? page=1, int? count=10)
         {
-            var filter_list = _memoryCache.GetData().Where(d=>d.soft_delete==false).Where(item => predicate(item, input));
+            var filter_list = _memoryCache.GetData().Where(d=>d.soft_delete==false).Where(item => predicate(item, input)).OrderByDescending(d=>d.creation);
             return new UnitGetDto<T>(_data:filter_list.Skip(((page ?? 1) - 1) * (count ?? 1)).Take(count ?? 10)
                 , _pages:(int)Math.Ceiling((decimal)filter_list.Count()/(count??10))
                 ,_count: filter_list.Count(),
@@ -20,7 +20,7 @@ namespace EmployeeERP.API.Service.UnitOfWork
 
         async Task<UnitGetDto<T>> IUnitService<T>.GetAll(int? page, int? count)
         {
-            var data = _memoryCache.GetData().Where(d=>d.soft_delete==false);
+            var data = _memoryCache.GetData().Where(d=>d.soft_delete==false).OrderByDescending(d=>d.creation);
             return new UnitGetDto<T>(_data: data.Skip(((page ?? 1) - 1)*(count??1)).Take(count ?? 10)
                 , _pages: (int)Math.Ceiling((decimal)data.Count() / (count ?? 10))
                 , _count: data.Count(),
